@@ -3,9 +3,13 @@ package med.voll.api.domain.consulta;
 import med.voll.api.domain.medico.Medico;
 import med.voll.api.domain.medico.MedicoRepository;
 import med.voll.api.domain.paciente.PacienteRepository;
+import med.voll.api.domain.validaciones.HorarioDeAnticipacion;
+import med.voll.api.domain.validaciones.ValidadorDeConsultas;
 import med.voll.api.infra.errores.ValidacionDeIntegridad;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class AgendaDeConsultaService {
@@ -17,20 +21,26 @@ public class AgendaDeConsultaService {
     @Autowired
     private ConsultaRepository consultaRepository;
 
+    //private HorarioDeAnticipacion horarioDeAnticipacion;
+    //Se quito y se colocp List
+    @Autowired
+    List<ValidadorDeConsultas> validadores;
+
     public void agendar(DatosAgendarConsulta datos){
 
-        if(pacienteRepository.findById(datos.idPaciente()).isPresent()){
+        if(!pacienteRepository.findById(datos.idPaciente()).isPresent()){
             throw new ValidacionDeIntegridad("este id para el paciente no fue encontrado");
         }
 
-        if(datos.idMedico()!=null && medicoRepository.existsById(datos.idMedico())){
+        if(datos.idMedico()!=null && !medicoRepository.existsById(datos.idMedico())){
             throw new ValidacionDeIntegridad("este id para el medico no fue encontrado");
         }
 
+        validadores.forEach(v->v.validar(datos));
+        // el envia cada uno de los datos de los validadotres que estan en la interfase
+
         var paciente = pacienteRepository.findById(datos.idPaciente()).get();
-
         var medico = seleccionarMedico(datos);
-
         var consulta = new Consulta(null,medico,paciente,datos.fecha());
 
         consultaRepository.save(consulta);
@@ -44,8 +54,6 @@ public class AgendaDeConsultaService {
         if(datos.especialidad()==null){
             throw new ValidacionDeIntegridad("debe seleccionarse una especialidad para el medico");
         }
-
-
-        return medicoRepository.seleccionarMedicoConEspecialidadEnFecha(datos.especialidad(),datos.fecha());
+       return medicoRepository.seleccionarMedicoConEspecialidadEnFecha(datos.especialidad(),datos.fecha());
     }
 }
