@@ -1,0 +1,1 @@
+CREATE SCHEMA `vollmed_api_test` ;
