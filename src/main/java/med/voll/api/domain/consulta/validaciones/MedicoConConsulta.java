@@ -1,4 +1,4 @@
-package med.voll.api.domain.validaciones;
+package med.voll.api.domain.consulta.validaciones;
 
 import jakarta.validation.ValidationException;
 import med.voll.api.domain.consulta.ConsultaRepository;
@@ -11,9 +11,9 @@ public class MedicoConConsulta implements ValidadorDeConsultas {
     @Autowired
     private ConsultaRepository repository;
     public void validar(DatosAgendarConsulta datos){
-        var medidoConConsulta = repository.existsByMedicoIdAndFecha(datos.idMedico(),datos.fecha());
-        if(medidoConConsulta){
-            throw new ValidationException("Este medico ya tiene una consulta en ese horario...");
+        var medicoConConsulta = repository.existsByMedicoIdAndFecha(datos.idMedico(),datos.fecha());
+        if(medicoConConsulta){
+            throw new ValidationException("Este medico ya tiene una consulta en ese horario");
         }
     }
 }

@@ -1,0 +1,8 @@
+spring:
+  profile.active: dev
+  datasource:
+    url: jdbc:mysql://localhost/vollmed_api_test
+    username: root
+    password: 1224
+
+

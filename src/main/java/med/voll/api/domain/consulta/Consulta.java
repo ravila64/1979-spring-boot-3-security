@@ -17,20 +17,26 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class Consulta {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "medico_id")
     private Medico medico;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "paciente_id")
     private Paciente paciente;
+    private LocalDateTime fecha;
+    @Column(name="motivo_cancelamiento")
+    @Enumerated(EnumType.STRING)
+    private MotivoCancelamiento motivoCancelamiento;
 
-    private LocalDateTime fecha;   // estaba fecha
-
-
+    public Consulta(Medico medico, Paciente paciente, LocalDateTime fecha) {
+        this.medico = medico;
+        this.paciente = paciente;
+        this.fecha = fecha;
+    }
+    public void cancelar(MotivoCancelamiento motivo){
+        this.motivoCancelamiento = motivo;
+    }
 }

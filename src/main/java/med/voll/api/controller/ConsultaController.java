@@ -1,5 +1,6 @@
 package med.voll.api.controller;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 
 import med.voll.api.domain.consulta.AgendaDeConsultaService;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @ResponseBody
 @RequestMapping("/consultas")
+@SecurityRequirement(name = "bearer-key")
+@SuppressWarnings("all")
 public class ConsultaController {
 
     @Autowired
@@ -22,9 +25,8 @@ public class ConsultaController {
     @PostMapping
     @Transactional
     public ResponseEntity agendar(@RequestBody @Valid DatosAgendarConsulta datos){
-
-        service.agendar(datos);
-
-        return ResponseEntity.ok(new DatosDetalleConsulta(null,null,null,null));
+        var response = service.agendar(datos);
+        return ResponseEntity.ok(response);
+        // ret ResponseEntity.ok(new DatosDetalleConsulta(null,null,null,null));
     }
 }

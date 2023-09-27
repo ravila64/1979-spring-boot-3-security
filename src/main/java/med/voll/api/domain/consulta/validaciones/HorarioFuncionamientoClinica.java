@@ -1,4 +1,4 @@
-package med.voll.api.domain.validaciones;
+package med.voll.api.domain.consulta.validaciones;
 
 import jakarta.validation.ValidationException;
 import med.voll.api.domain.consulta.DatosAgendarConsulta;
