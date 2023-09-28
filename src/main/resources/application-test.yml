@@ -1,7 +1,7 @@
 spring:
   profile.active: dev
   datasource:
-    url: jdbc:mysql://localhost/vollmed_api_test
+    url: jdbc:mysql://localhost/vollmed_api_test?createDatabaseIfNotExist=true&serverTimeZone=UTC
     username: root
     password: 1224
 
