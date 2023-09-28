@@ -34,13 +34,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 class ConsultaControllerTest {
     @Autowired
     private MockMvc mvc;
-
     @Autowired
     private JacksonTester<DatosAgendarConsulta> agendarConsultaJacksonTester;
-
     @Autowired
     private JacksonTester<DatosDetalleConsulta> detalleConsultaJacksonTester;
-
     @MockBean
     private AgendaDeConsultaService agendaDeConsultaService;
 
