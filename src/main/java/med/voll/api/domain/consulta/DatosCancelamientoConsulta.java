@@ -6,13 +6,13 @@ import med.voll.api.domain.medico.Especialidad;
 
 import java.time.LocalDateTime;
 
-public record DatosCancelamientoConsulta() {
-//    @NotNull
-//    Long idPaciente,
-//    Long idMedico,
-//    @NotNull
-//    @Future
-//    LocalDateTime fecha,
-//    MotivoCancelamiento motivoCancelamiento)
-//    {  }
-}
+public record DatosCancelamientoConsulta(
+    @NotNull
+    Long idPaciente,
+    Long idMedico,
+    @NotNull
+    @Future
+    LocalDateTime fecha,
+    MotivoCancelamiento motivoCancelamiento)
+    {}
+

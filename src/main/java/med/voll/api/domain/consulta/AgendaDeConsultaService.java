@@ -46,14 +46,14 @@ public class AgendaDeConsultaService {
         consultaRepository.save(consulta);
         return new DatosDetalleConsulta(consulta);
     }
-//    public void cancelar(DatosCancelamientoConsulta datos){
-//        if(!consultaRepository.existsById(datos.idConsulta())){
-//            throw new ValidacionDeIntegridad("Id de la consulta informado no existe");
-//        }
-//        validadoresCancelamiento.forEach(v->v.validar(datos));
-//        var consulta = consultaRepository.getReferenceById(datos.idConsulta());
-//        consulta.cancelar(datos.motivo());
-//    }
+    public void cancelar(DatosCancelamientoConsulta datos){
+        if(!consultaRepository.existsById(datos.idConsulta())){
+            throw new ValidacionDeIntegridad("Id de la consulta informado no existe");
+        }
+        validadoresCancelamiento.forEach(v->v.validar(datos));
+        var consulta = consultaRepository.getReferenceById(datos.idConsulta());
+        consulta.cancelar(datos.motivo());
+    }
 
     private Medico seleccionarMedico(DatosAgendarConsulta datos) {
         if(datos.idMedico()!=null){
@@ -64,4 +64,7 @@ public class AgendaDeConsultaService {
         }
        return medicoRepository.seleccionarMedicoConEspecialidadEnFecha(datos.especialidad(),datos.fecha());
     }
+
+//    public void cancelar(DatosCancelamientoConsulta datos) {
+//    }
 }
