@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 public record DatosAgendarConsulta(
         @NotNull
         Long idPaciente,
+        @NotNull
         Long idMedico,
         @NotNull
         @Future
