@@ -6,8 +6,10 @@ import med.voll.api.domain.paciente.PacienteRepository;
 import med.voll.api.domain.consulta.validaciones.ValidadorDeConsultas;
 import med.voll.api.infra.errores.ValidacionDeIntegridad;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Pageable;
 import java.util.List;
 
 @Service
@@ -24,6 +26,8 @@ public class AgendaDeConsultaService {
     //Se quito y se colocp List
     @Autowired
     List<ValidadorDeConsultas> validadores;
+    @Autowired
+    private List<ValidadorCancelamientoDeConsulta> validadoresCancelamiento;
 
     public DatosDetalleConsulta agendar(DatosAgendarConsulta datos){
         if(!pacienteRepository.findById(datos.idPaciente()).isPresent()){
@@ -64,7 +68,9 @@ public class AgendaDeConsultaService {
         }
        return medicoRepository.seleccionarMedicoConEspecialidadEnFecha(datos.especialidad(),datos.fecha());
     }
-
+public Page<DatosDetalleConsulta> consultar(Pageable paginacion) {
+    return consultaRepository.findAll(paginacion).map(DatosAgendarConsulta::new);
+}
 //    public void cancelar(DatosCancelamientoConsulta datos) {
 //    }
 }
