@@ -9,6 +9,6 @@ import java.time.LocalDateTime;
 public record DatosCancelamientoConsulta(
         @NotNull Long idConsulta, @NotNull Long idPaciente, @NotNull Long idMedico,
         @NotNull @Future LocalDateTime fecha,
-    MotivoCancelamiento motivoCancelamiento)
+        MotivoCancelamiento motivoCancelamiento)
     {
     }
