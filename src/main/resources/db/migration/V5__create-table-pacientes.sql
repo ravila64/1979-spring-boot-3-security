@@ -1,5 +1,4 @@
 create table pacientes(
-
     id bigint not null auto_increment,
     nombre varchar(100) not null,
     email varchar(100) not null unique,
@@ -11,7 +10,5 @@ create table pacientes(
     ciudad varchar(100) not null,
     telefono varchar(20) not null,
     activo tinyint not null,
-
     primary key(id)
-
 );
